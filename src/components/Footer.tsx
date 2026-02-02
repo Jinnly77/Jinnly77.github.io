@@ -1,14 +1,11 @@
-export default function Footer({
-  visits,
-  loading,
-}: {
-  visits: number | null;
-  loading?: boolean;
-}) {
+export default function Footer() {
   return (
     <footer className="footer-wrap">
-      <span title="总访问次数">
-        📊 访问次数：{loading ? "加载中..." : visits ?? "暂无数据"}
+      <span id="busuanzi_container_site_pv" style={{ display: "none" }}>
+        📊 总访问量 <span id="busuanzi_value_site_pv"></span> 次
+      </span>
+      <span id="busuanzi_container_site_uv" style={{ display: "none" }}>
+        👥 总访客数 <span id="busuanzi_value_site_uv"></span> 人
       </span>
     </footer>
   );

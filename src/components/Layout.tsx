@@ -6,11 +6,9 @@ import Sidebar from "./Sidebar";
 import Footer from "./Footer";
 import SearchModal from "./SearchModal";
 import BackToTop from "./BackToTop";
-import { useVisitStats } from "../hooks/useVisitStats";
 
 export default function Layout() {
   const [searchOpen, setSearchOpen] = useState(false);
-  const { visits, loading } = useVisitStats();
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -32,7 +30,7 @@ export default function Layout() {
       <main className="main-wrap">
         <Outlet />
       </main>
-      <Footer visits={visits} loading={loading} />
+      <Footer />
       <SearchModal
         open={searchOpen}
         onClose={() => setSearchOpen(false)}

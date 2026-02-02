@@ -642,6 +642,15 @@ body {
   gap: 0.35rem;
 }
 
+/* Busuanzi counter styling */
+#busuanzi_value_site_pv,
+#busuanzi_value_site_uv {
+  color: var(--ctp-mauve);
+  font-weight: 600;
+  min-width: 1.5em;
+  text-align: center;
+}
+
 /* Post list (index) */
 .post-list {
   list-style: none;
@@ -821,6 +830,15 @@ body {
   text-decoration: underline;
 }
 
+/* Constrain images to prevent layout issues */
+.post-body img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1rem auto;
+  border-radius: 8px;
+}
+
 .back {
   margin-top: 2rem;
   padding-top: 1rem;
@@ -970,6 +988,58 @@ body {
   border-radius: 4px;
   color: var(--ctp-overlay1);
   margin-left: 0.5rem;
+}
+
+/* Mobile navbar responsive adjustments */
+@media (max-width: 768px) {
+  .nav-bar {
+    flex-wrap: wrap;
+    padding: 0.5rem 1rem;
+    gap: 0.5rem;
+  }
+
+  .nav-bar .logo {
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  .nav-links {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    gap: 0.25rem;
+  }
+
+  .nav-links a {
+    font-size: 0.8rem;
+    padding: 0.3rem 0.6rem;
+  }
+
+  .nav-actions {
+    flex-shrink: 0;
+    gap: 0.35rem;
+  }
+
+  .search-btn span:not(.search-kbd):not([aria-hidden]) {
+    display: none;
+  }
+
+  .search-btn .search-kbd {
+    display: none;
+  }
+
+  .theme-toggle {
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-links a {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+  }
 }
 
 /* Categories / Tags / Archive pages */
