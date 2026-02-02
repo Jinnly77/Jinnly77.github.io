@@ -1,6 +1,7 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
+import fs from "fs";
 import { loadPosts } from "./src/posts";
 
 const contentDir = path.resolve(process.cwd(), "content/posts");
@@ -9,7 +10,7 @@ const virtualId = "virtual:posts";
 const resolvedId = "\0" + virtualId;
 
 export default defineConfig({
-  plugins: [react(), postsVirtualModule()],
+  plugins: [react(), postsVirtualModule(), copyNojekyll()],
   base: process.env.GITHUB_PAGES ? "/MyBlog/" : "/",
   resolve: {
     alias: {
@@ -40,6 +41,19 @@ function postsVirtualModule(): import("vite").Plugin {
           ctx.server.moduleGraph.invalidateModule(mod);
           return [mod];
         }
+      }
+    },
+  };
+}
+
+function copyNojekyll(): import("vite").Plugin {
+  return {
+    name: "copy-nojekyll",
+    closeBundle() {
+      const nojekyllPath = path.resolve(__dirname, ".nojekyll");
+      if (fs.existsSync(nojekyllPath)) {
+        const outPath = path.resolve(__dirname, "dist", ".nojekyll");
+        fs.copyFileSync(nojekyllPath, outPath);
       }
     },
   };
