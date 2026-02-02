@@ -11,7 +11,7 @@ const resolvedId = "\0" + virtualId;
 
 export default defineConfig({
   plugins: [react(), postsVirtualModule(), copyNojekyll()],
-  base: process.env.GITHUB_PAGES ? "/MyBlog/" : "/",
+  base: "/",
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
