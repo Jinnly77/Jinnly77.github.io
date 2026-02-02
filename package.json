@@ -1,0 +1,35 @@
+{
+  "name": "my-blog",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "build:cli": "tsc -p tsconfig.cli.json",
+    "postinstall": "npm run build:cli"
+  },
+  "bin": {
+    "blog": "./bin/cli.js"
+  },
+  "dependencies": {
+    "@types/highlight.js": "^9.12.4",
+    "commander": "^12.1.0",
+    "gray-matter": "^4.0.3",
+    "highlight.js": "^11.11.1",
+    "marked": "^12.0.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.28.0",
+    "slugify": "^1.6.6"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.1",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.3"
+  }
+}
