@@ -9,6 +9,8 @@ import BackToTop from "./BackToTop";
 
 export default function Layout() {
   const [searchOpen, setSearchOpen] = useState(false);
+  const [leftSidebarOpen, setLeftSidebarOpen] = useState(false);
+  const [rightSidebarOpen, setRightSidebarOpen] = useState(false);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -23,8 +25,12 @@ export default function Layout() {
 
   return (
     <div className="app-layout">
-      <NavBar onSearchOpen={() => setSearchOpen(true)} />
-      <div className="sidebar-wrap">
+      <NavBar
+        onSearchOpen={() => setSearchOpen(true)}
+        onToggleLeftSidebar={() => setLeftSidebarOpen((prev) => !prev)}
+        onToggleRightSidebar={() => setRightSidebarOpen((prev) => !prev)}
+      />
+      <div className={`sidebar-wrap ${leftSidebarOpen ? "mobile-open" : ""}`}>
         <Sidebar posts={posts} />
       </div>
       <main className="main-wrap">
@@ -37,6 +43,13 @@ export default function Layout() {
         posts={posts}
       />
       <BackToTop />
+      {/* Mobile sidebar overlay */}
+      {leftSidebarOpen && (
+        <div
+          className="sidebar-overlay"
+          onClick={() => setLeftSidebarOpen(false)}
+        />
+      )}
     </div>
   );
 }

@@ -58,6 +58,7 @@ export default function Post() {
   const visitedRef = useRef<Set<string>>(new Set());
   const [toc, setToc] = useState<TocItem[]>([]);
   const [tocCollapsed, setTocCollapsed] = useState<Set<string>>(new Set());
+  const [mobileTocOpen, setMobileTocOpen] = useState(false);
   const { setProgress } = useReadingProgress();
   const { increment: incrementVisit } = usePostVisitsContext();
   const { theme } = useTheme();
@@ -201,9 +202,19 @@ export default function Post() {
       </article>
 
       {toc.length > 0 ? (
-        <aside className="post-toc-wrap">
+        <aside className={`post-toc-wrap ${mobileTocOpen ? "mobile-open" : ""}`}>
           <nav className="post-toc" aria-label="文章目录">
-            <div className="post-toc-title">目录</div>
+            <div className="post-toc-title">
+              目录
+              <button
+                type="button"
+                className="post-toc-close"
+                onClick={() => setMobileTocOpen(false)}
+                aria-label="关闭目录"
+              >
+                ✕
+              </button>
+            </div>
             <ul className="post-toc-list">
               {tocSections.map(({ section, children }) => {
                 const isCollapsed = tocCollapsed.has(section.id);
@@ -228,6 +239,7 @@ export default function Post() {
                         onClick={(e) => {
                           e.preventDefault();
                           scrollToHeading(section.id);
+                          setMobileTocOpen(false);
                         }}
                       >
                         {section.text}
@@ -247,6 +259,7 @@ export default function Post() {
                               onClick={(e) => {
                                 e.preventDefault();
                                 scrollToHeading(id);
+                                setMobileTocOpen(false);
                               }}
                             >
                               {text}
@@ -262,6 +275,27 @@ export default function Post() {
           </nav>
         </aside>
       ) : null}
+
+      {/* Mobile TOC floating button */}
+      {toc.length > 0 && (
+        <>
+          <button
+            type="button"
+            className="mobile-toc-toggle"
+            onClick={() => setMobileTocOpen((prev) => !prev)}
+            aria-label="切换目录"
+            aria-expanded={mobileTocOpen}
+          >
+            📑
+          </button>
+          {mobileTocOpen && (
+            <div
+              className="toc-overlay"
+              onClick={() => setMobileTocOpen(false)}
+            />
+          )}
+        </>
+      )}
     </div>
   );
 }
