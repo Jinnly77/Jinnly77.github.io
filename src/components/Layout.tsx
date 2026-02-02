@@ -10,7 +10,7 @@ import { useVisitStats } from "../hooks/useVisitStats";
 
 export default function Layout() {
   const [searchOpen, setSearchOpen] = useState(false);
-  const { visits, visitors } = useVisitStats();
+  const { visits, loading } = useVisitStats();
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -32,7 +32,7 @@ export default function Layout() {
       <main className="main-wrap">
         <Outlet />
       </main>
-      <Footer visits={visits} visitors={visitors} />
+      <Footer visits={visits} loading={loading} />
       <SearchModal
         open={searchOpen}
         onClose={() => setSearchOpen(false)}

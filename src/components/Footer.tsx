@@ -1,14 +1,15 @@
 export default function Footer({
   visits,
-  visitors,
+  loading,
 }: {
-  visits: number;
-  visitors: number;
+  visits: number | null;
+  loading?: boolean;
 }) {
   return (
     <footer className="footer-wrap">
-      <span title="总访问次数">📊 访问次数：{visits}</span>
-      <span title="独立访客数">👤 访客数：{visitors}</span>
+      <span title="总访问次数">
+        📊 访问次数：{loading ? "加载中..." : visits ?? "暂无数据"}
+      </span>
     </footer>
   );
 }
