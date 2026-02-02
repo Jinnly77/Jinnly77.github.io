@@ -55,6 +55,7 @@ export default function Post() {
   const post = posts.find((p) => p.slug === slug);
   const bodyRef = useRef<HTMLDivElement>(null);
   const articleRef = useRef<HTMLElement>(null);
+  const visitedRef = useRef<Set<string>>(new Set());
   const [toc, setToc] = useState<TocItem[]>([]);
   const [tocCollapsed, setTocCollapsed] = useState<Set<string>>(new Set());
   const { setProgress } = useReadingProgress();
@@ -132,7 +133,10 @@ export default function Post() {
   }, [post?.slug, setProgress]);
 
   useEffect(() => {
-    if (post?.slug) incrementVisit(post.slug);
+    if (post?.slug && !visitedRef.current.has(post.slug)) {
+      visitedRef.current.add(post.slug);
+      incrementVisit(post.slug);
+    }
   }, [post?.slug, incrementVisit]);
 
   if (!post) {

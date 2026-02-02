@@ -7,7 +7,7 @@ export const siteConfig = {
   welcomeMessage: "Welcome to Jinn's blog",
   about: {
     /** 头像图片路径，放在 public 目录下，如 public/avatar.png 则填 /avatar.png */
-    avatar: "/avatar.svg",
+    avatar: "/avatar.jpeg",
     /** 姓名/昵称 */
     name: "Jinn",
     /** 职业身份 */
