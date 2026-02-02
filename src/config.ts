@@ -29,7 +29,6 @@ export const siteConfig = {
     contact: {
       email: "kr1s133@outlook.com",
       github: "https://github.com/piupiuxiupa",
-      twitter: "https://twitter.com/your-username",
     },
     /** 其他链接 */
     links: [
