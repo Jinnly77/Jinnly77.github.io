@@ -59,6 +59,7 @@ export default function Post() {
   const visitedRef = useRef<Set<string>>(new Set());
   const [toc, setToc] = useState<TocItem[]>([]);
   const [tocCollapsed, setTocCollapsed] = useState<Set<string>>(new Set());
+  const [titleNavOpen, setTitleNavOpen] = useState(false);
   const { tocOpen: mobileTocOpen, toggleToc, closeToc } = useMobileToc();
   const { setProgress } = useReadingProgress();
   const { increment: incrementVisit } = usePostVisitsContext();
@@ -279,6 +280,55 @@ export default function Post() {
           {/* 移除重复的 TOC 遮罩层，使用 Layout.tsx 中的统一样式 */}
         </>
       ) : null}
+      {toc.length > 0 && (
+        <>
+          <button
+            type="button"
+            className="title-nav-toggle"
+            onClick={() => setTitleNavOpen(!titleNavOpen)}
+            aria-label="标题导航"
+            title="标题导航"
+          >
+            📑
+          </button>
+          {titleNavOpen && (
+            <div className="title-nav-popup">
+              <div className="title-nav-header">
+                <span className="title-nav-title">标题导航</span>
+                <button
+                  type="button"
+                  className="title-nav-close"
+                  onClick={() => setTitleNavOpen(false)}
+                  aria-label="关闭"
+                >
+                  ✕
+                </button>
+              </div>
+              <ul className="title-nav-list">
+                {toc.map((item) => (
+                  <li
+                    key={item.id}
+                    className="title-nav-item"
+                    style={{ paddingLeft: `${(item.level - 1) * 0.75}rem` }}
+                  >
+                    <a
+                      href={`#${item.id}`}
+                      className="title-nav-link"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        scrollToHeading(item.id);
+                        setTitleNavOpen(false);
+                      }}
+                    >
+                      {item.text}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </>
+      )}
     </div>
   );
 }

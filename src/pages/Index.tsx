@@ -4,6 +4,7 @@ import { posts } from "virtual:posts";
 import KeywordSphere from "../components/KeywordSphere";
 import WelcomeMessage from "../components/WelcomeMessage";
 import HeatRanking from "../components/HeatRanking";
+import { useMobileSidebar } from "../context/MobileSidebarContext";
 
 function getExcerpt(post: { content: string; meta: { description?: string } }): string {
   if (post.meta.description) {
@@ -25,6 +26,7 @@ function getExcerpt(post: { content: string; meta: { description?: string } }): 
 const POSTS_PER_PAGE = 10;
 
 export default function Index() {
+  const { rightOpen, closeRight, toggleLeft, toggleRight } = useMobileSidebar();
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = Math.ceil(posts.length / POSTS_PER_PAGE);
   const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
@@ -135,10 +137,28 @@ export default function Index() {
             </div>
           )}
         </div>
-        <aside className="index-sidebar">
-          <HeatRanking />
+        <aside className={`index-sidebar ${rightOpen ? "mobile-open" : ""}`}>
+          <HeatRanking onClose={closeRight} />
         </aside>
       </div>
+      <button
+        type="button"
+        className="mobile-sidebar-toggle-left"
+        onClick={toggleLeft}
+        aria-label="查看文章列表"
+        title="文章列表"
+      >
+        📝
+      </button>
+      <button
+        type="button"
+        className="mobile-sidebar-toggle-right"
+        onClick={toggleRight}
+        aria-label="查看热度榜"
+        title="热度榜"
+      >
+        🔥
+      </button>
       {/* 移除重复的遮罩层，使用 Layout.tsx 中的统一样式，避免移动端弹窗被遮罩覆盖无法显示内容 */}
     </div>
   );

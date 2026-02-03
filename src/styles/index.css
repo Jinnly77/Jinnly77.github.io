@@ -1074,6 +1074,128 @@ body {
   font-weight: 600;
 }
 
+/* Title navigation toggle button */
+.title-nav-toggle {
+  position: fixed;
+  bottom: 6rem;
+  right: 1.5rem;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  border: 1px solid var(--ctp-surface1);
+  background: var(--ctp-surface0);
+  color: var(--ctp-text);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: background 0.15s, color 0.15s, transform 0.15s;
+  z-index: 50;
+}
+
+.title-nav-toggle:hover {
+  background: var(--ctp-mauve);
+  color: var(--ctp-base);
+  transform: translateY(-2px);
+}
+
+/* Title navigation popup */
+.title-nav-popup {
+  position: fixed;
+  bottom: 6.5rem;
+  right: 1.5rem;
+  width: 280px;
+  max-width: calc(100vw - 3rem);
+  max-height: 400px;
+  background: var(--ctp-mantle);
+  border: 1px solid var(--ctp-surface0);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  z-index: 51;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: slideUp 0.2s ease;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.title-nav-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--ctp-surface0);
+  background: var(--ctp-base);
+}
+
+.title-nav-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--ctp-mauve);
+}
+
+.title-nav-close {
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--ctp-subtext0);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  border-radius: 4px;
+  transition: background 0.15s, color 0.15s;
+}
+
+.title-nav-close:hover {
+  background: var(--ctp-surface0);
+  color: var(--ctp-text);
+}
+
+.title-nav-list {
+  list-style: none;
+  padding: 0.5rem;
+  margin: 0;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.title-nav-item {
+  margin: 0.25rem 0;
+}
+
+.title-nav-link {
+  display: block;
+  padding: 0.5rem 0.75rem;
+  color: var(--ctp-text);
+  text-decoration: none;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  border-radius: 6px;
+  transition: background 0.15s, color 0.15s;
+  word-break: break-word;
+}
+
+.title-nav-link:hover {
+  background: var(--ctp-surface0);
+  color: var(--ctp-mauve);
+}
+
 /* Mobile toggle buttons */
 .mobile-sidebar-toggle-left,
 .mobile-sidebar-toggle-right,
