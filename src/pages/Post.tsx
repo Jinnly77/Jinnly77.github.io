@@ -59,7 +59,7 @@ export default function Post() {
   const visitedRef = useRef<Set<string>>(new Set());
   const [toc, setToc] = useState<TocItem[]>([]);
   const [tocCollapsed, setTocCollapsed] = useState<Set<string>>(new Set());
-  const { tocOpen: mobileTocOpen, closeToc } = useMobileToc();
+  const { tocOpen: mobileTocOpen, toggleToc, closeToc } = useMobileToc();
   const { setProgress } = useReadingProgress();
   const { increment: incrementVisit } = usePostVisitsContext();
   const { theme } = useTheme();
@@ -203,78 +203,95 @@ export default function Post() {
       </article>
 
       {toc.length > 0 ? (
-        <aside className={`post-toc-wrap ${mobileTocOpen ? "mobile-open" : ""}`}>
-          <nav className="post-toc" aria-label="文章目录">
-            <div className="post-toc-title">
-              目录
-              <button
-                type="button"
-                className="post-toc-close"
-                onClick={closeToc}
-                aria-label="关闭目录"
-              >
-                ✕
-              </button>
-            </div>
-            <ul className="post-toc-list">
-              {tocSections.map(({ section, children }) => {
-                const isCollapsed = tocCollapsed.has(section.id);
-                const hasChildren = children.length > 0;
-                return (
-                  <li key={section.id} className="post-toc-section">
-                    <div className="post-toc-section-head">
-                      {hasChildren ? (
-                        <button
-                          type="button"
-                          className="post-toc-toggle"
-                          onClick={() => toggleTocSection(section.id)}
-                          aria-expanded={!isCollapsed}
-                          title={isCollapsed ? "展开" : "折叠"}
-                        >
-                          {isCollapsed ? "▶" : "▼"}
-                        </button>
-                      ) : null}
-                      <a
-                        href={`#${section.id}`}
-                        className="post-toc-link"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          scrollToHeading(section.id);
-                          closeToc();
-                        }}
-                      >
-                        {section.text}
-                      </a>
-                    </div>
-                    {hasChildren && !isCollapsed ? (
-                      <ul className="post-toc-sublist">
-                        {children.map(({ level, text, id }) => (
-                          <li
-                            key={id}
-                            className="post-toc-item"
-                            style={{ paddingLeft: `${(level - 1) * 0.75}rem` }}
+        <>
+          <button
+            type="button"
+            className="mobile-toc-toggle"
+            onClick={toggleToc}
+            aria-label="查看目录"
+            title="目录"
+          >
+            📑
+          </button>
+          <aside className={`post-toc-wrap ${mobileTocOpen ? "mobile-open" : ""}`}>
+            <nav className="post-toc" aria-label="文章目录">
+              <div className="post-toc-title">
+                目录
+                <button
+                  type="button"
+                  className="post-toc-close"
+                  onClick={closeToc}
+                  aria-label="关闭目录"
+                >
+                  ✕
+                </button>
+              </div>
+              <ul className="post-toc-list">
+                {tocSections.map(({ section, children }) => {
+                  const isCollapsed = tocCollapsed.has(section.id);
+                  const hasChildren = children.length > 0;
+                  return (
+                    <li key={section.id} className="post-toc-section">
+                      <div className="post-toc-section-head">
+                        {hasChildren ? (
+                          <button
+                            type="button"
+                            className="post-toc-toggle"
+                            onClick={() => toggleTocSection(section.id)}
+                            aria-expanded={!isCollapsed}
+                            title={isCollapsed ? "展开" : "折叠"}
                           >
-                            <a
-                              href={`#${id}`}
-                              className="post-toc-link"
-                              onClick={(e) => {
-                                e.preventDefault();
-                                scrollToHeading(id);
-                                closeToc();
-                              }}
+                            {isCollapsed ? "▶" : "▼"}
+                          </button>
+                        ) : null}
+                        <a
+                          href={`#${section.id}`}
+                          className="post-toc-link"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            scrollToHeading(section.id);
+                            closeToc();
+                          }}
+                        >
+                          {section.text}
+                        </a>
+                      </div>
+                      {hasChildren && !isCollapsed ? (
+                        <ul className="post-toc-sublist">
+                          {children.map(({ level, text, id }) => (
+                            <li
+                              key={id}
+                              className="post-toc-item"
+                              style={{ paddingLeft: `${(level - 1) * 0.75}rem` }}
                             >
-                              {text}
-                            </a>
-                          </li>
-                        ))}
-                      </ul>
-                    ) : null}
-                  </li>
-                );
-              })}
-            </ul>
-          </nav>
-        </aside>
+                              <a
+                                href={`#${id}`}
+                                className="post-toc-link"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  scrollToHeading(id);
+                                  closeToc();
+                                }}
+                              >
+                                {text}
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
+                      ) : null}
+                    </li>
+                  );
+                })}
+              </ul>
+            </nav>
+          </aside>
+          {mobileTocOpen && (
+            <div
+              className="toc-overlay"
+              onClick={closeToc}
+            />
+          )}
+        </>
       ) : null}
     </div>
   );

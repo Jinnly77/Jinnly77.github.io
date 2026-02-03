@@ -757,6 +757,20 @@ body {
   padding: 1rem 0;
   border-bottom: 1px solid var(--ctp-surface0);
   transition: background 0.15s;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: slideUpFade 0.5s ease forwards;
+}
+
+@keyframes slideUpFade {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .post-item:hover {
@@ -793,6 +807,10 @@ body {
   margin: 0.5rem 0 0;
   font-size: 0.9rem;
   color: var(--ctp-subtext0);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .post-item .tags-inline {
@@ -808,6 +826,43 @@ body {
   background: var(--ctp-surface1);
   color: var(--ctp-subtext1);
   border-radius: 6px;
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--ctp-surface0);
+}
+
+.pagination-btn {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--ctp-surface1);
+  border-radius: 8px;
+  background: var(--ctp-surface0);
+  color: var(--ctp-text);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.pagination-btn:hover:not(:disabled) {
+  background: var(--ctp-mauve);
+  color: var(--ctp-base);
+}
+
+.pagination-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pagination-info {
+  font-size: 0.9rem;
+  color: var(--ctp-subtext1);
 }
 
 /* Post detail */
@@ -1263,6 +1318,24 @@ body {
   .toc-overlay {
     display: block;
     animation: fadeIn 0.2s ease;
+  }
+
+  /* Mobile toggle buttons */
+  .mobile-toc-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mobile-heat-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Adjust back-to-top position when toggles are visible */
+  .back-to-top {
+    bottom: 6rem;
   }
 }
 
@@ -1946,6 +2019,31 @@ body {
 
 .mobile-toc-toggle:hover {
   background: var(--ctp-mauve);
+  color: var(--ctp-base);
+  transform: translateY(-2px);
+}
+
+/* Mobile heat ranking toggle button */
+.mobile-heat-toggle {
+  display: none;
+  position: fixed;
+  bottom: 5.5rem;
+  right: 1.5rem;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  border: 1px solid var(--ctp-surface1);
+  background: var(--ctp-surface0);
+  color: var(--ctp-text);
+  cursor: pointer;
+  font-size: 1.25rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: background 0.15s, color 0.15s, transform 0.15s;
+  z-index: 50;
+}
+
+.mobile-heat-toggle:hover {
+  background: var(--ctp-peach);
   color: var(--ctp-base);
   transform: translateY(-2px);
 }
