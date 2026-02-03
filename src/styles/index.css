@@ -801,13 +801,13 @@ body {
   margin: 0.5rem 0 0;
   font-size: 0.9rem;
   color: var(--ctp-subtext0);
+  line-height: 1.6;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  line-height: 1.6;
-  max-height: 4.8em;
   text-overflow: ellipsis;
+  word-break: break-word;
 }
 
 .post-item .tags-inline {
@@ -1065,6 +1065,63 @@ body {
 .back-to-top-progress {
   font-size: 0.7rem;
   font-weight: 600;
+}
+
+/* Mobile toggle buttons */
+.mobile-sidebar-toggle-left,
+.mobile-sidebar-toggle-right,
+.mobile-toc-toggle {
+  display: none;
+  position: fixed;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  border: 1px solid var(--ctp-surface1);
+  background: var(--ctp-surface0);
+  color: var(--ctp-text);
+  cursor: pointer;
+  font-size: 1.25rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: background 0.15s, color 0.15s, transform 0.15s;
+  z-index: 50;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-sidebar-toggle-left:hover,
+.mobile-sidebar-toggle-right:hover,
+.mobile-toc-toggle:hover {
+  transform: translateY(-2px);
+}
+
+.mobile-sidebar-toggle-left {
+  bottom: 5.5rem;
+  right: 1.5rem;
+}
+
+.mobile-sidebar-toggle-left:hover {
+  background: var(--ctp-blue);
+  color: var(--ctp-base);
+}
+
+.mobile-sidebar-toggle-right {
+  bottom: 9.5rem;
+  right: 1.5rem;
+}
+
+.mobile-sidebar-toggle-right:hover {
+  background: var(--ctp-peach);
+  color: var(--ctp-base);
+}
+
+.mobile-toc-toggle {
+  bottom: 5.5rem;
+  right: 1.5rem;
+}
+
+.mobile-toc-toggle:hover {
+  background: var(--ctp-mauve);
+  color: var(--ctp-base);
 }
 
 /* Search modal */
@@ -1982,63 +2039,6 @@ body {
 .post-toc-close:hover {
   color: var(--ctp-mauve);
   background: var(--ctp-surface0);
-}
-
-/* Mobile toggle buttons */
-.mobile-sidebar-toggle-left,
-.mobile-sidebar-toggle-right,
-.mobile-toc-toggle {
-  display: none;
-  position: fixed;
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  border: 1px solid var(--ctp-surface1);
-  background: var(--ctp-surface0);
-  color: var(--ctp-text);
-  cursor: pointer;
-  font-size: 1.25rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  transition: background 0.15s, color 0.15s, transform 0.15s;
-  z-index: 50;
-  align-items: center;
-  justify-content: center;
-}
-
-.mobile-sidebar-toggle-left:hover,
-.mobile-sidebar-toggle-right:hover,
-.mobile-toc-toggle:hover {
-  transform: translateY(-2px);
-}
-
-.mobile-sidebar-toggle-left {
-  bottom: 5.5rem;
-  left: 1.5rem;
-}
-
-.mobile-sidebar-toggle-left:hover {
-  background: var(--ctp-blue);
-  color: var(--ctp-base);
-}
-
-.mobile-sidebar-toggle-right {
-  bottom: 5.5rem;
-  right: 1.5rem;
-}
-
-.mobile-sidebar-toggle-right:hover {
-  background: var(--ctp-peach);
-  color: var(--ctp-base);
-}
-
-.mobile-toc-toggle {
-  bottom: 5.5rem;
-  right: 1.5rem;
-}
-
-.mobile-toc-toggle:hover {
-  background: var(--ctp-mauve);
-  color: var(--ctp-base);
 }
 
 /* TOC overlay for mobile */

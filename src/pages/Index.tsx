@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { posts } from "virtual:posts";
 import KeywordSphere from "../components/KeywordSphere";
@@ -32,9 +32,14 @@ export default function Index() {
   const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
   const endIndex = startIndex + POSTS_PER_PAGE;
   const currentPosts = posts.slice(startIndex, endIndex);
+  const observerRef = useRef<IntersectionObserver | null>(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
+    if (observerRef.current) {
+      observerRef.current.disconnect();
+    }
+
+    observerRef.current = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
@@ -46,10 +51,12 @@ export default function Index() {
     );
 
     const items = document.querySelectorAll(".post-item");
-    items.forEach((item) => observer.observe(item));
+    items.forEach((item) => observerRef.current?.observe(item));
 
     return () => {
-      items.forEach((item) => observer.unobserve(item));
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+      }
     };
   }, [currentPage]);
 
@@ -72,8 +79,8 @@ export default function Index() {
         <div className="index-main">
           <h1>文章</h1>
           <ul className="post-list">
-            {currentPosts.map((post) => (
-              <li key={post.slug} className="post-item">
+            {currentPosts.map((post, index) => (
+              <li key={`${post.slug}-${currentPage}-${index}`} className="post-item">
                 <Link to={`/post/${post.slug}`}>
                   <time dateTime={post.meta.date}>{post.meta.date}</time>
                   <span className="title">{post.meta.title}</span>
