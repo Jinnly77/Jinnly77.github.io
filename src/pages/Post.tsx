@@ -204,15 +204,6 @@ export default function Post() {
 
       {toc.length > 0 ? (
         <>
-          <button
-            type="button"
-            className="mobile-toc-toggle"
-            onClick={toggleToc}
-            aria-label="查看目录"
-            title="目录"
-          >
-            📑
-          </button>
           <aside className={`post-toc-wrap ${mobileTocOpen ? "mobile-open" : ""}`}>
             <nav className="post-toc" aria-label="文章目录">
               <div className="post-toc-title">

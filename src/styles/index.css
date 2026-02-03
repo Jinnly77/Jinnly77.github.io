@@ -810,6 +810,7 @@ body {
   word-break: break-word;
   /* 确保容器宽度有效，避免文字无限延伸 */
   max-width: 100%;
+  width: 100%;
 }
 
 .post-item .tags-inline {
@@ -1344,10 +1345,6 @@ body {
 
   .heat-ranking-close {
     display: flex;
-  }
-
-  .sidebar-overlay--right {
-    z-index: 190;
   }
 
   /* Mobile TOC sidebar */
