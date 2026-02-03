@@ -39,26 +39,43 @@ export default function Index() {
       observerRef.current.disconnect();
     }
 
+    // 观察所有文章项，处理进入和离开视口的动画
     observerRef.current = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
+            // 元素进入视口：显示并添加动画
             entry.target.classList.add("fade-in-visible");
+            entry.target.dataset.animated = "true";
+          } else if (entry.boundingClientRect.top > 0) {
+            // 元素离开视口上方：重置动画状态以便下次进入时重新动画
+            // boundingClientRect.top > 0 表示元素在视口上方
+            entry.target.classList.remove("fade-in-visible");
+            delete entry.target.dataset.animated;
           }
         });
       },
-      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+      {
+        threshold: 0.05,
+        rootMargin: "50px 0px 50px 0px", // 上下各扩展50px，提前触发动画
+      }
     );
 
+    // 观察所有文章项（包括已动画的，因为可能需要重新触发）
     const items = document.querySelectorAll(".post-item");
-    items.forEach((item) => observerRef.current?.observe(item));
+    items.forEach((item) => {
+      // 先重置状态，确保翻页后所有元素都能正确触发动画
+      item.classList.remove("fade-in-visible");
+      delete item.dataset.animated;
+      observerRef.current?.observe(item);
+    });
 
     return () => {
       if (observerRef.current) {
         observerRef.current.disconnect();
       }
     };
-  }, [currentPage]);
+  }, [currentPage]); // 翻页时重新设置观察器，确保新内容正确触发动画
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -142,12 +159,7 @@ export default function Index() {
       >
         🔥
       </button>
-      {rightOpen && (
-        <div
-          className="sidebar-overlay sidebar-overlay--right"
-          onClick={closeRight}
-        />
-      )}
+      {/* 移除重复的遮罩层，使用 Layout.tsx 中的统一样式，避免移动端弹窗被遮罩覆盖无法显示内容 */}
     </div>
   );
 }

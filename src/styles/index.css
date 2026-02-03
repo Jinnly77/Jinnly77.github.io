@@ -804,10 +804,12 @@ body {
   line-height: 1.6;
   display: -webkit-box;
   -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
+  -webkit-box-orient: vertical; /* 必需属性，配合 -webkit-line-clamp 实现多行省略 */
   overflow: hidden;
   text-overflow: ellipsis;
   word-break: break-word;
+  /* 确保容器宽度有效，避免文字无限延伸 */
+  max-width: 100%;
 }
 
 .post-item .tags-inline {
@@ -1312,6 +1314,11 @@ body {
   .sidebar-overlay {
     display: block;
     animation: fadeIn 0.2s ease;
+  }
+
+  /* 修复右侧遮罩层z-index，确保其高于右侧侧边栏，避免侧边栏无法被点击关闭 */
+  .sidebar-overlay--right {
+    z-index: 210;
   }
 
   .index-sidebar {
@@ -2047,7 +2054,7 @@ body {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.5);
-  z-index: 180;
+  z-index: 210; /* 修复 z-index，确保遮罩层高于侧边栏，可以点击关闭 */
 }
 
 .post-toc-list {

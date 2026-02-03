@@ -285,12 +285,7 @@ export default function Post() {
               </ul>
             </nav>
           </aside>
-          {mobileTocOpen && (
-            <div
-              className="toc-overlay"
-              onClick={closeToc}
-            />
-          )}
+          {/* 移除重复的 TOC 遮罩层，使用 Layout.tsx 中的统一样式 */}
         </>
       ) : null}
     </div>
