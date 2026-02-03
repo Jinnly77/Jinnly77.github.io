@@ -70,6 +70,16 @@ export default function Index() {
       observerRef.current?.observe(item);
     });
 
+    // 立即检查一次所有元素是否在视口内，解决页面加载时元素不显示的问题
+    items.forEach((item) => {
+      const rect = item.getBoundingClientRect();
+      const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
+      if (isInViewport) {
+        item.classList.add("fade-in-visible");
+        item.dataset.animated = "true";
+      }
+    });
+
     return () => {
       if (observerRef.current) {
         observerRef.current.disconnect();
