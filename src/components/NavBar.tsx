@@ -6,10 +6,12 @@ export default function NavBar({
   onSearchOpen,
   onToggleLeftSidebar,
   onToggleRightSidebar,
+  showRightToggle = false,
 }: {
   onSearchOpen: () => void;
-  onToggleLeftSidebar?: () => void;
-  onToggleRightSidebar?: () => void;
+  onToggleLeftSidebar?: () => void | null;
+  onToggleRightSidebar?: () => void | null;
+  showRightToggle?: boolean;
 }) {
   const { theme, toggleTheme } = useTheme();
 
@@ -53,7 +55,7 @@ export default function NavBar({
         ))}
       </ul>
       <div className="nav-actions">
-        {onToggleRightSidebar && (
+        {onToggleRightSidebar && showRightToggle && (
           <button
             type="button"
             className="mobile-sidebar-toggle"

@@ -1,16 +1,18 @@
 import { useState, useEffect } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { posts } from "virtual:posts";
 import NavBar from "./NavBar";
 import Sidebar from "./Sidebar";
 import Footer from "./Footer";
 import SearchModal from "./SearchModal";
 import BackToTop from "./BackToTop";
+import { useMobileSidebar } from "../context/MobileSidebarContext";
 
 export default function Layout() {
   const [searchOpen, setSearchOpen] = useState(false);
-  const [leftSidebarOpen, setLeftSidebarOpen] = useState(false);
-  const [rightSidebarOpen, setRightSidebarOpen] = useState(false);
+  const { leftOpen, rightOpen, toggleLeft, toggleRight, closeLeft, closeRight } = useMobileSidebar();
+  const location = useLocation();
+  const isIndexPage = location.pathname === "/";
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -27,10 +29,11 @@ export default function Layout() {
     <div className="app-layout">
       <NavBar
         onSearchOpen={() => setSearchOpen(true)}
-        onToggleLeftSidebar={() => setLeftSidebarOpen((prev) => !prev)}
-        onToggleRightSidebar={() => setRightSidebarOpen((prev) => !prev)}
+        onToggleLeftSidebar={leftOpen ? closeLeft : toggleLeft}
+        onToggleRightSidebar={rightOpen ? closeRight : toggleRight}
+        showRightToggle={isIndexPage}
       />
-      <div className={`sidebar-wrap ${leftSidebarOpen ? "mobile-open" : ""}`}>
+      <div className={`sidebar-wrap ${leftOpen ? "mobile-open" : ""}`}>
         <Sidebar posts={posts} />
       </div>
       <main className="main-wrap">
@@ -43,11 +46,18 @@ export default function Layout() {
         posts={posts}
       />
       <BackToTop />
-      {/* Mobile sidebar overlay */}
-      {leftSidebarOpen && (
+      {/* Mobile left sidebar overlay */}
+      {leftOpen && (
         <div
           className="sidebar-overlay"
-          onClick={() => setLeftSidebarOpen(false)}
+          onClick={closeLeft}
+        />
+      )}
+      {/* Mobile right sidebar overlay */}
+      {rightOpen && (
+        <div
+          className="sidebar-overlay sidebar-overlay--right"
+          onClick={closeRight}
         />
       )}
     </div>

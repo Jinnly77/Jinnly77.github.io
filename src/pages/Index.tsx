@@ -3,8 +3,11 @@ import { posts } from "virtual:posts";
 import KeywordSphere from "../components/KeywordSphere";
 import WelcomeMessage from "../components/WelcomeMessage";
 import HeatRanking from "../components/HeatRanking";
+import { useMobileSidebar } from "../context/MobileSidebarContext";
 
 export default function Index() {
+  const { rightOpen, closeRight } = useMobileSidebar();
+
   return (
     <div className="index-page">
       <section className="index-cloud-section">
@@ -41,10 +44,16 @@ export default function Index() {
             ))}
           </ul>
         </div>
-        <aside className="index-sidebar">
+        <aside className={`index-sidebar ${rightOpen ? "mobile-open" : ""}`}>
           <HeatRanking />
         </aside>
       </div>
+      {rightOpen && (
+        <div
+          className="sidebar-overlay sidebar-overlay--right"
+          onClick={closeRight}
+        />
+      )}
     </div>
   );
 }
