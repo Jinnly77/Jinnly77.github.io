@@ -7,11 +7,15 @@ export default function NavBar({
   onToggleLeftSidebar,
   onToggleRightSidebar,
   showRightToggle = false,
+  onToggleToc,
+  showTocToggle = false,
 }: {
   onSearchOpen: () => void;
   onToggleLeftSidebar?: () => void | null;
   onToggleRightSidebar?: () => void | null;
   showRightToggle?: boolean;
+  onToggleToc?: () => void;
+  showTocToggle?: boolean;
 }) {
   const { theme, toggleTheme } = useTheme();
 
@@ -64,6 +68,17 @@ export default function NavBar({
             title="热度榜"
           >
             📊
+          </button>
+        )}
+        {onToggleToc && showTocToggle && (
+          <button
+            type="button"
+            className="mobile-sidebar-toggle"
+            onClick={onToggleToc}
+            aria-label="切换目录"
+            title="目录"
+          >
+            📑
           </button>
         )}
         <button

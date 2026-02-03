@@ -45,7 +45,7 @@ export default function Index() {
           </ul>
         </div>
         <aside className={`index-sidebar ${rightOpen ? "mobile-open" : ""}`}>
-          <HeatRanking />
+          <HeatRanking onClose={closeRight} />
         </aside>
       </div>
       {rightOpen && (

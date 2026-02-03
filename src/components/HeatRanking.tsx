@@ -14,7 +14,7 @@ function getTags(posts: Post[]): string[] {
   return Array.from(set).sort();
 }
 
-export default function HeatRanking() {
+export default function HeatRanking({ onClose }: { onClose?: () => void }) {
   const { visits } = usePostVisitsContext();
   const [tagFilter, setTagFilter] = useState<string>("");
 
@@ -34,7 +34,19 @@ export default function HeatRanking() {
 
   return (
     <aside className="heat-ranking">
-      <div className="heat-ranking-title">热度榜</div>
+      <div className="heat-ranking-header">
+        <div className="heat-ranking-title">热度榜</div>
+        {onClose && (
+          <button
+            type="button"
+            className="heat-ranking-close"
+            onClick={onClose}
+            aria-label="关闭热度榜"
+          >
+            ✕
+          </button>
+        )}
+      </div>
       <div className="heat-ranking-filter">
         <label htmlFor="heat-tag" className="heat-ranking-label">
           标签

@@ -7,12 +7,15 @@ import Footer from "./Footer";
 import SearchModal from "./SearchModal";
 import BackToTop from "./BackToTop";
 import { useMobileSidebar } from "../context/MobileSidebarContext";
+import { useMobileToc } from "../context/MobileTocContext";
 
 export default function Layout() {
   const [searchOpen, setSearchOpen] = useState(false);
   const { leftOpen, rightOpen, toggleLeft, toggleRight, closeLeft, closeRight } = useMobileSidebar();
+  const { tocOpen, toggleToc, closeToc } = useMobileToc();
   const location = useLocation();
   const isIndexPage = location.pathname === "/";
+  const isPostPage = location.pathname.startsWith("/post/");
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -32,9 +35,11 @@ export default function Layout() {
         onToggleLeftSidebar={leftOpen ? closeLeft : toggleLeft}
         onToggleRightSidebar={rightOpen ? closeRight : toggleRight}
         showRightToggle={isIndexPage}
+        onToggleToc={toggleToc}
+        showTocToggle={isPostPage}
       />
       <div className={`sidebar-wrap ${leftOpen ? "mobile-open" : ""}`}>
-        <Sidebar posts={posts} />
+        <Sidebar posts={posts} onClose={closeLeft} />
       </div>
       <main className="main-wrap">
         <Outlet />
@@ -58,6 +63,13 @@ export default function Layout() {
         <div
           className="sidebar-overlay sidebar-overlay--right"
           onClick={closeRight}
+        />
+      )}
+      {/* Mobile TOC overlay */}
+      {tocOpen && (
+        <div
+          className="toc-overlay"
+          onClick={closeToc}
         />
       )}
     </div>

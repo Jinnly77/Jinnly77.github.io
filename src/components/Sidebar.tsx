@@ -30,7 +30,7 @@ function matchPost(post: Post, q: string): boolean {
   return title.includes(lower) || date.includes(lower);
 }
 
-export default function Sidebar({ posts }: { posts: Post[] }) {
+export default function Sidebar({ posts, onClose }: { posts: Post[]; onClose?: () => void }) {
   const [search, setSearch] = useState("");
   const [collapsedYears, setCollapsedYears] = useState<Set<string>>(new Set());
   const [collapsedMonths, setCollapsedMonths] = useState<Set<string>>(new Set());
@@ -73,6 +73,19 @@ export default function Sidebar({ posts }: { posts: Post[] }) {
 
   return (
     <aside className="sidebar-wrap">
+      <div className="sidebar-header">
+        <p className="sidebar-title">文章列表</p>
+        {onClose && (
+          <button
+            type="button"
+            className="sidebar-close"
+            onClick={onClose}
+            aria-label="关闭导航"
+          >
+            ✕
+          </button>
+        )}
+      </div>
       <div className="sidebar-search-wrap">
         <input
           type="search"
@@ -83,7 +96,6 @@ export default function Sidebar({ posts }: { posts: Post[] }) {
           aria-label="搜索文章"
         />
       </div>
-      <p className="sidebar-title">文章列表</p>
       {filtered.map(({ year, months }) => {
         const yearCollapsed = collapsedYears.has(year);
         return (
