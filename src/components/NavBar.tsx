@@ -4,16 +4,10 @@ import { siteConfig } from "../config";
 
 export default function NavBar({
   onSearchOpen,
-  onToggleLeftSidebar,
-  onToggleRightSidebar,
-  showRightToggle = false,
   onToggleToc,
   showTocToggle = false,
 }: {
   onSearchOpen: () => void;
-  onToggleLeftSidebar?: () => void | null;
-  onToggleRightSidebar?: () => void | null;
-  showRightToggle?: boolean;
   onToggleToc?: () => void;
   showTocToggle?: boolean;
 }) {
@@ -30,17 +24,6 @@ export default function NavBar({
   return (
     <nav className="nav-bar">
       <div className="nav-start">
-        {onToggleLeftSidebar && (
-          <button
-            type="button"
-            className="mobile-sidebar-toggle"
-            onClick={onToggleLeftSidebar}
-            aria-label="切换文章导航"
-            title="文章导航"
-          >
-            ☰
-          </button>
-        )}
         <Link to="/" className="logo">
           {siteConfig.title}
         </Link>
@@ -59,17 +42,6 @@ export default function NavBar({
         ))}
       </ul>
       <div className="nav-actions">
-        {onToggleRightSidebar && showRightToggle && (
-          <button
-            type="button"
-            className="mobile-sidebar-toggle"
-            onClick={onToggleRightSidebar}
-            aria-label="切换热度榜"
-            title="热度榜"
-          >
-            📊
-          </button>
-        )}
         {onToggleToc && showTocToggle && (
           <button
             type="button"

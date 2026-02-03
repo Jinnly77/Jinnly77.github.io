@@ -45,7 +45,7 @@ export default function WelcomeMessage() {
     <div className="welcome-message">
       <p className={`welcome-text ${isComplete ? "complete" : ""}`}>
         {displayText}
-        <span className="cursor">|</span>
+        <span className="cursor">_</span>
       </p>
     </div>
   );

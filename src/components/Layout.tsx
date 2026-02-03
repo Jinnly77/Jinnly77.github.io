@@ -32,9 +32,6 @@ export default function Layout() {
     <div className="app-layout">
       <NavBar
         onSearchOpen={() => setSearchOpen(true)}
-        onToggleLeftSidebar={leftOpen ? closeLeft : toggleLeft}
-        onToggleRightSidebar={rightOpen ? closeRight : toggleRight}
-        showRightToggle={isIndexPage}
         onToggleToc={toggleToc}
         showTocToggle={isPostPage}
       />

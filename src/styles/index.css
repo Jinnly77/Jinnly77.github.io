@@ -224,7 +224,7 @@ body {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.5);
-  z-index: 150;
+  z-index: 210;
 }
 
 /* Mobile sidebar toggle button */
@@ -557,7 +557,7 @@ body {
   color: var(--ctp-mauve);
   font-weight: 600;
   margin-left: 2px;
-  animation: blink 0.7s infinite;
+  animation: blink 1.2s infinite;
 }
 
 @keyframes blink {
@@ -811,6 +811,10 @@ body {
   /* 确保容器宽度有效，避免文字无限延伸 */
   max-width: 100%;
   width: 100%;
+  /* 确保换行正常工作 */
+  white-space: normal;
+  /* 防止内容溢出 */
+  box-sizing: border-box;
 }
 
 .post-item .tags-inline {
