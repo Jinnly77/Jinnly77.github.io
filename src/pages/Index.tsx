@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { posts } from "virtual:posts";
 import KeywordSphere from "../components/KeywordSphere";
@@ -26,12 +26,32 @@ function getExcerpt(post: { content: string; meta: { description?: string } }): 
 const POSTS_PER_PAGE = 10;
 
 export default function Index() {
-  const { rightOpen, closeRight, toggleRight } = useMobileSidebar();
+  const { rightOpen, closeRight, toggleLeft, toggleRight } = useMobileSidebar();
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = Math.ceil(posts.length / POSTS_PER_PAGE);
   const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
   const endIndex = startIndex + POSTS_PER_PAGE;
   const currentPosts = posts.slice(startIndex, endIndex);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("fade-in-visible");
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+    );
+
+    const items = document.querySelectorAll(".post-item");
+    items.forEach((item) => observer.observe(item));
+
+    return () => {
+      items.forEach((item) => observer.unobserve(item));
+    };
+  }, [currentPage]);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -99,7 +119,16 @@ export default function Index() {
       </div>
       <button
         type="button"
-        className="mobile-heat-toggle"
+        className="mobile-sidebar-toggle-left"
+        onClick={toggleLeft}
+        aria-label="查看文章列表"
+        title="文章列表"
+      >
+        📝
+      </button>
+      <button
+        type="button"
+        className="mobile-sidebar-toggle-right"
         onClick={toggleRight}
         aria-label="查看热度榜"
         title="热度榜"
