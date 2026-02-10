@@ -1,5 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import { posts } from "virtual:posts";
+import { usePostFadeIn } from "../hooks/usePostFadeIn";
 
 export default function CategoryPosts() {
   const { name } = useParams<{ name: string }>();
@@ -7,6 +8,8 @@ export default function CategoryPosts() {
   const list = posts.filter(
     (p) => (p.meta.category ?? "未分类") === decoded
   );
+
+  usePostFadeIn();
 
   return (
     <div>

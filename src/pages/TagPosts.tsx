@@ -1,10 +1,13 @@
 import { Link, useParams } from "react-router-dom";
 import { posts } from "virtual:posts";
+import { usePostFadeIn } from "../hooks/usePostFadeIn";
 
 export default function TagPosts() {
   const { name } = useParams<{ name: string }>();
   const decoded = name ? decodeURIComponent(name) : "";
   const list = posts.filter((p) => (p.meta.tags ?? []).includes(decoded));
+
+  usePostFadeIn();
 
   return (
     <div>

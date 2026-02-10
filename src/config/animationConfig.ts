@@ -25,13 +25,13 @@ export interface AnimationConfig {
  */
 export const animationConfig: AnimationConfig = {
   /** Delay between each list item appearing (milliseconds) */
-  SEQUENTIAL_DELAY_MS: 150,
+  SEQUENTIAL_DELAY_MS: 100,
 
   /** Animation duration in seconds - sets CSS variable --animation-duration */
   ANIMATION_DURATION_S: 0.6,
 
   /** Y-axis translation offset (pixels) for fade-in effect - sets CSS variable --animation-offset */
-  ANIMATION_OFFSET_PX: 30,
+  ANIMATION_OFFSET_PX: 20,
 } as const;
 
 /** Export individual constants for convenient imports */
