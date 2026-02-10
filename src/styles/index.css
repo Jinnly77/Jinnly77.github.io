@@ -57,6 +57,11 @@
   --ctp-crust: #dce0e8;
 }
 
+:root {
+  --animation-duration: 0.6s;
+  --animation-offset: 30px;
+}
+
 *,
 *::before,
 *::after {
@@ -757,8 +762,8 @@ body {
   padding: 1rem 0;
   border-bottom: 1px solid var(--ctp-surface0);
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.6s ease, transform 0.6s ease, background 0.15s;
+  transform: translateY(var(--animation-offset));
+  transition: opacity var(--animation-duration) ease, transform var(--animation-duration) ease, background 0.15s;
 }
 
 .post-item.fade-in-visible {

@@ -5,7 +5,7 @@ import KeywordSphere from "../components/KeywordSphere";
 import WelcomeMessage from "../components/WelcomeMessage";
 import HeatRanking from "../components/HeatRanking";
 import { useMobileSidebar } from "../context/MobileSidebarContext";
-import { SEQUENTIAL_DELAY_MS } from "../config/animationConfig";
+import { SEQUENTIAL_DELAY_MS, animationConfig } from "../config/animationConfig";
 
 export interface PostTocItem {
   level: number;
@@ -41,6 +41,12 @@ export default function Index() {
   const endIndex = startIndex + POSTS_PER_PAGE;
   const currentPosts = posts.slice(startIndex, endIndex);
   const observerRef = useRef<IntersectionObserver | null>(null);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    root.style.setProperty('--animation-duration', `${animationConfig.ANIMATION_DURATION_S}s`);
+    root.style.setProperty('--animation-offset', `${animationConfig.ANIMATION_OFFSET_PX}px`);
+  }, []);
 
   useEffect(() => {
     if (observerRef.current) {
