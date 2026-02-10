@@ -6,6 +6,12 @@ import WelcomeMessage from "../components/WelcomeMessage";
 import HeatRanking from "../components/HeatRanking";
 import { useMobileSidebar } from "../context/MobileSidebarContext";
 
+export interface PostTocItem {
+  level: number;
+  text: string;
+  id: string;
+}
+
 function getExcerpt(post: { content: string; meta: { description?: string } }): string {
   if (post.meta.description) {
     return post.meta.description;
@@ -28,6 +34,7 @@ const POSTS_PER_PAGE = 10;
 export default function Index() {
   const { rightOpen, closeRight } = useMobileSidebar();
   const [currentPage, setCurrentPage] = useState(1);
+  const [titleNavOpen, setTitleNavOpen] = useState(false);
   const totalPages = Math.ceil(posts.length / POSTS_PER_PAGE);
   const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
   const endIndex = startIndex + POSTS_PER_PAGE;
@@ -154,7 +161,46 @@ export default function Index() {
           <HeatRanking onClose={closeRight} />
         </aside>
       </div>
-      {/* 移除重复的遮罩层，使用 Layout.tsx 中的统一样式，避免移动端弹窗被遮罩覆盖无法显示内容 */}
+      <button
+        type="button"
+        className="title-nav-toggle"
+        onClick={() => setTitleNavOpen(!titleNavOpen)}
+        aria-label="文章导航"
+        title="文章导航"
+      >
+        📑
+      </button>
+      {titleNavOpen && (
+        <div className="title-nav-popup">
+          <div className="title-nav-header">
+            <span className="title-nav-title">文章导航</span>
+            <button
+              type="button"
+              className="title-nav-close"
+              onClick={() => setTitleNavOpen(false)}
+              aria-label="关闭"
+            >
+              ✕
+            </button>
+          </div>
+          <ul className="title-nav-list">
+            {posts.map((post) => (
+              <li
+                key={post.slug}
+                className="title-nav-item"
+              >
+                <Link
+                  to={`/post/${post.slug}`}
+                  className="title-nav-link"
+                  onClick={() => setTitleNavOpen(false)}
+                >
+                  {post.meta.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
