@@ -37,21 +37,11 @@ export default function MouseTrail() {
       initParticles();
     };
 
-    const colors = [
-      { hue: 280, name: "mauve" },
-      { hue: 320, name: "pink" },
-      { hue: 200, name: "blue" },
-      { hue: 170, name: "teal" },
-      { hue: 340, name: "rose" },
-    ];
-
     const initParticles = () => {
       particles.current = [];
       const numParticles = Math.floor((canvas.width * canvas.height) / 8000);
-      
+
       for (let i = 0; i < numParticles; i++) {
-        const color = colors[Math.floor(Math.random() * colors.length)];
-        
         particles.current.push({
           baseX: Math.random() * canvas.width,
           baseY: Math.random() * canvas.height,
@@ -63,9 +53,9 @@ export default function MouseTrail() {
           frequencyY: 0.5 + Math.random() * 1.2,
           amplitudeX: 15 + Math.random() * 20,
           amplitudeY: 15 + Math.random() * 20,
-          hue: color.hue + Math.random() * 20 - 10,
-          radius: 1.5 + Math.random() * 2,
-          opacity: 0.15 + Math.random() * 0.15,
+          hue: Math.random() * 360,
+          radius: 2 + Math.random() * 2.5,
+          opacity: 0.2 + Math.random() * 0.2,
         });
       }
     };
@@ -123,12 +113,14 @@ export default function MouseTrail() {
         const size = p.radius * (0.5 + normalizedDist * 1.2);
         const alpha = p.opacity * (0.35 + normalizedDist * 0.4);
 
+        const rainbowHue = (p.hue + time.current * 15) % 360;
+
         const gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, size);
         const lightness = isDark ? 55 : 45;
         const saturation = isDark ? 70 : 60;
-        gradient.addColorStop(0, `hsla(${p.hue}, ${saturation}%, ${lightness}%, ${alpha})`);
-        gradient.addColorStop(0.5, `hsla(${p.hue}, ${saturation}%, ${lightness}%, ${alpha * 0.4})`);
-        gradient.addColorStop(1, `hsla(${p.hue}, ${saturation}%, ${lightness}%, 0)`);
+        gradient.addColorStop(0, `hsla(${rainbowHue}, ${saturation}%, ${lightness}%, ${alpha})`);
+        gradient.addColorStop(0.5, `hsla(${rainbowHue}, ${saturation}%, ${lightness}%, ${alpha * 0.4})`);
+        gradient.addColorStop(1, `hsla(${rainbowHue}, ${saturation}%, ${lightness}%, 0)`);
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, size, 0, Math.PI * 2);
