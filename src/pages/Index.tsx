@@ -5,7 +5,7 @@ import KeywordSphere from "../components/KeywordSphere";
 import WelcomeMessage from "../components/WelcomeMessage";
 import HeatRanking from "../components/HeatRanking";
 import { useMobileSidebar } from "../context/MobileSidebarContext";
-import { SEQUENTIAL_DELAY_MS, animationConfig } from "../config/animationConfig";
+import { SEQUENTIAL_DELAY_MS, ANIMATION_DURATION_S, ANIMATION_OFFSET_PX } from "../config/animationConfig";
 
 export interface PostTocItem {
   level: number;
@@ -44,8 +44,12 @@ export default function Index() {
 
   useEffect(() => {
     const root = document.documentElement;
-    root.style.setProperty('--animation-duration', `${animationConfig.ANIMATION_DURATION_S}s`);
-    root.style.setProperty('--animation-offset', `${animationConfig.ANIMATION_OFFSET_PX}px`);
+    root.style.setProperty('--animation-duration', `${ANIMATION_DURATION_S}s`);
+    root.style.setProperty('--animation-offset', `${ANIMATION_OFFSET_PX}px`);
+    return () => {
+      root.style.removeProperty('--animation-duration');
+      root.style.removeProperty('--animation-offset');
+    };
   }, []);
 
   useEffect(() => {

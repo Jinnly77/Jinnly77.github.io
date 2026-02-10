@@ -57,11 +57,6 @@
   --ctp-crust: #dce0e8;
 }
 
-:root {
-  --animation-duration: 0.6s;
-  --animation-offset: 30px;
-}
-
 *,
 *::before,
 *::after {
