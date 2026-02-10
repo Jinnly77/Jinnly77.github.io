@@ -5,6 +5,7 @@ import KeywordSphere from "../components/KeywordSphere";
 import WelcomeMessage from "../components/WelcomeMessage";
 import HeatRanking from "../components/HeatRanking";
 import { useMobileSidebar } from "../context/MobileSidebarContext";
+import { SEQUENTIAL_DELAY_MS } from "../config/animationConfig";
 
 export interface PostTocItem {
   level: number;
@@ -120,7 +121,7 @@ export default function Index() {
               <li
                 key={`${post.slug}-${currentPage}-${index}`}
                 className="post-item"
-                style={{ transitionDelay: `${index * 150}ms` }}
+                style={{ transitionDelay: `${index * SEQUENTIAL_DELAY_MS}ms` }}
               >
                 <Link to={`/post/${post.slug}`}>
                   <time dateTime={post.meta.date}>{post.meta.date}</time>
