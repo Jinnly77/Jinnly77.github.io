@@ -26,7 +26,7 @@ function getExcerpt(post: { content: string; meta: { description?: string } }): 
 const POSTS_PER_PAGE = 10;
 
 export default function Index() {
-  const { rightOpen, closeRight, toggleLeft, toggleRight } = useMobileSidebar();
+  const { rightOpen, closeRight, toggleLeft } = useMobileSidebar();
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = Math.ceil(posts.length / POSTS_PER_PAGE);
   const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
@@ -43,15 +43,16 @@ export default function Index() {
     observerRef.current = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
+          const target = entry.target as HTMLElement;
           if (entry.isIntersecting) {
             // 元素进入视口：显示并添加动画
-            entry.target.classList.add("fade-in-visible");
-            entry.target.dataset.animated = "true";
+            target.classList.add("fade-in-visible");
+            target.dataset.animated = "true";
           } else if (entry.boundingClientRect.top > 0) {
             // 元素离开视口上方：重置动画状态以便下次进入时重新动画
             // boundingClientRect.top > 0 表示元素在视口上方
-            entry.target.classList.remove("fade-in-visible");
-            delete entry.target.dataset.animated;
+            target.classList.remove("fade-in-visible");
+            delete target.dataset.animated;
           }
         });
       },
@@ -64,19 +65,21 @@ export default function Index() {
     // 观察所有文章项（包括已动画的，因为可能需要重新触发）
     const items = document.querySelectorAll(".post-item");
     items.forEach((item) => {
+      const htmlItem = item as HTMLElement;
       // 先重置状态，确保翻页后所有元素都能正确触发动画
-      item.classList.remove("fade-in-visible");
-      delete item.dataset.animated;
-      observerRef.current?.observe(item);
+      htmlItem.classList.remove("fade-in-visible");
+      delete htmlItem.dataset.animated;
+      observerRef.current?.observe(htmlItem);
     });
 
     // 立即检查一次所有元素是否在视口内，解决页面加载时元素不显示的问题
     items.forEach((item) => {
-      const rect = item.getBoundingClientRect();
+      const htmlItem = item as HTMLElement;
+      const rect = htmlItem.getBoundingClientRect();
       const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
       if (isInViewport) {
-        item.classList.add("fade-in-visible");
-        item.dataset.animated = "true";
+        htmlItem.classList.add("fade-in-visible");
+        htmlItem.dataset.animated = "true";
       }
     });
 
@@ -159,15 +162,6 @@ export default function Index() {
         title="文章列表"
       >
         📝
-      </button>
-      <button
-        type="button"
-        className="mobile-sidebar-toggle-right"
-        onClick={toggleRight}
-        aria-label="查看热度榜"
-        title="热度榜"
-      >
-        🔥
       </button>
       {/* 移除重复的遮罩层，使用 Layout.tsx 中的统一样式，避免移动端弹窗被遮罩覆盖无法显示内容 */}
     </div>

@@ -1077,6 +1077,7 @@ body {
 
 /* Title navigation toggle button */
 .title-nav-toggle {
+  display: none;
   position: fixed;
   bottom: 6rem;
   right: 1.5rem;
@@ -1087,7 +1088,6 @@ body {
   background: var(--ctp-surface0);
   color: var(--ctp-text);
   cursor: pointer;
-  display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.25rem;
@@ -1508,7 +1508,8 @@ body {
   /* Mobile toggle buttons */
   .mobile-sidebar-toggle-left,
   .mobile-sidebar-toggle-right,
-  .mobile-toc-toggle {
+  .mobile-toc-toggle,
+  .title-nav-toggle {
     display: flex;
   }
 }

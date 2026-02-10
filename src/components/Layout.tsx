@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { posts } from "virtual:posts";
 import NavBar from "./NavBar";
 import Sidebar from "./Sidebar";
@@ -11,11 +11,8 @@ import { useMobileToc } from "../context/MobileTocContext";
 
 export default function Layout() {
   const [searchOpen, setSearchOpen] = useState(false);
-  const { leftOpen, rightOpen, toggleLeft, toggleRight, closeLeft, closeRight } = useMobileSidebar();
-  const { tocOpen, toggleToc, closeToc } = useMobileToc();
-  const location = useLocation();
-  const isIndexPage = location.pathname === "/";
-  const isPostPage = location.pathname.startsWith("/post/");
+  const { leftOpen, rightOpen, closeLeft, closeRight } = useMobileSidebar();
+  const { tocOpen, closeToc } = useMobileToc();
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -32,9 +29,6 @@ export default function Layout() {
     <div className="app-layout">
       <NavBar
         onSearchOpen={() => setSearchOpen(true)}
-        onToggleLeftSidebar={leftOpen ? closeLeft : toggleLeft}
-        onToggleRightSidebar={rightOpen ? closeRight : toggleRight}
-        showRightToggle={isIndexPage}
       />
       <div className={`sidebar-wrap ${leftOpen ? "mobile-open" : ""}`}>
         <Sidebar posts={posts} onClose={closeLeft} />
