@@ -117,7 +117,11 @@ export default function Index() {
           <h1>文章</h1>
           <ul className="post-list">
             {currentPosts.map((post, index) => (
-              <li key={`${post.slug}-${currentPage}-${index}`} className="post-item">
+              <li
+                key={`${post.slug}-${currentPage}-${index}`}
+                className="post-item"
+                style={{ transitionDelay: `${index * 150}ms` }}
+              >
                 <Link to={`/post/${post.slug}`}>
                   <time dateTime={post.meta.date}>{post.meta.date}</time>
                   <span className="title">{post.meta.title}</span>
