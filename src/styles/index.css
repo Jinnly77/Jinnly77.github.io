@@ -224,7 +224,7 @@ body {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.5);
-  z-index: 210;
+  z-index: 200;
 }
 
 /* Mobile sidebar toggle button */
@@ -1093,7 +1093,7 @@ body {
   font-size: 1.25rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   transition: background 0.15s, color 0.15s, transform 0.15s;
-  z-index: 50;
+  z-index: 202;
 }
 
 .title-nav-toggle:hover {
@@ -1114,7 +1114,7 @@ body {
   border: 1px solid var(--ctp-surface0);
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-  z-index: 51;
+  z-index: 203;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -1446,7 +1446,7 @@ body {
 
   /* 修复右侧遮罩层z-index，确保其高于右侧侧边栏，避免侧边栏无法被点击关闭 */
   .sidebar-overlay--right {
-    z-index: 210;
+    z-index: 200;
   }
 
   .index-sidebar {
@@ -1489,6 +1489,7 @@ body {
     padding: 1rem;
     padding-top: 4.5rem;
     background: var(--ctp-mantle);
+    display: none;
   }
 
   .post-toc-wrap.mobile-open {
@@ -1503,6 +1504,7 @@ body {
   .toc-overlay {
     display: block;
     animation: fadeIn 0.2s ease;
+    z-index: 200;
   }
 
   /* Mobile toggle buttons */
