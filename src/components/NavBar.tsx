@@ -66,17 +66,6 @@ export default function NavBar({
             📊
           </button>
         )}
-        {onToggleToc && showTocToggle && (
-          <button
-            type="button"
-            className="mobile-sidebar-toggle"
-            onClick={onToggleToc}
-            aria-label="切换目录"
-            title="目录"
-          >
-            📑
-          </button>
-        )}
         <button
           type="button"
           className="search-btn"
