@@ -31,7 +31,7 @@ export const animationConfig: AnimationConfig = {
   ANIMATION_DURATION_S: 0.6,
 
   /** Y-axis translation offset (pixels) for fade-in effect - sets CSS variable --animation-offset */
-  ANIMATION_OFFSET_PX: 20,
+  ANIMATION_OFFSET_PX: 10,
 } as const;
 
 /** Export individual constants for convenient imports */

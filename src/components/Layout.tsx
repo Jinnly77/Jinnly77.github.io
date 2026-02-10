@@ -6,6 +6,7 @@ import Sidebar from "./Sidebar";
 import Footer from "./Footer";
 import SearchModal from "./SearchModal";
 import BackToTop from "./BackToTop";
+import MouseTrail from "./MouseTrail";
 import { useMobileSidebar } from "../context/MobileSidebarContext";
 import { useMobileToc } from "../context/MobileTocContext";
 
@@ -30,6 +31,7 @@ export default function Layout() {
       <NavBar
         onSearchOpen={() => setSearchOpen(true)}
       />
+      <MouseTrail />
       <div className={`sidebar-wrap ${leftOpen ? "mobile-open" : ""}`}>
         <Sidebar posts={posts} onClose={closeLeft} />
       </div>
