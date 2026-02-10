@@ -1422,7 +1422,7 @@ body {
     width: 85%;
     max-width: 320px;
     height: 100vh;
-    z-index: 200;
+    z-index: 201;
     transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     border-right: 1px solid var(--ctp-surface0);
     background: var(--ctp-mantle);
@@ -1456,7 +1456,7 @@ body {
     width: 85%;
     max-width: 320px;
     height: 100vh;
-    z-index: 200;
+    z-index: 201;
     transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     overflow-y: auto;
     border-left: 1px solid var(--ctp-surface0);
@@ -1482,7 +1482,7 @@ body {
     width: 85%;
     max-width: 320px;
     height: 100vh;
-    z-index: 200;
+    z-index: 201;
     transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     overflow-y: auto;
     border-left: 1px solid var(--ctp-surface0);
@@ -1508,9 +1508,13 @@ body {
   /* Mobile toggle buttons */
   .mobile-sidebar-toggle-left,
   .mobile-sidebar-toggle-right,
-  .mobile-toc-toggle,
-  .title-nav-toggle {
+  .mobile-toc-toggle {
     display: flex;
+  }
+
+  /* 移动端不显示标题导航 */
+  .title-nav-toggle {
+    display: none;
   }
 }
 

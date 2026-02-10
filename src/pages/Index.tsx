@@ -26,7 +26,7 @@ function getExcerpt(post: { content: string; meta: { description?: string } }): 
 const POSTS_PER_PAGE = 10;
 
 export default function Index() {
-  const { rightOpen, closeRight, toggleLeft } = useMobileSidebar();
+  const { rightOpen, closeRight } = useMobileSidebar();
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = Math.ceil(posts.length / POSTS_PER_PAGE);
   const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
@@ -154,15 +154,6 @@ export default function Index() {
           <HeatRanking onClose={closeRight} />
         </aside>
       </div>
-      <button
-        type="button"
-        className="mobile-sidebar-toggle-left"
-        onClick={toggleLeft}
-        aria-label="查看文章列表"
-        title="文章列表"
-      >
-        📝
-      </button>
       {/* 移除重复的遮罩层，使用 Layout.tsx 中的统一样式，避免移动端弹窗被遮罩覆盖无法显示内容 */}
     </div>
   );
