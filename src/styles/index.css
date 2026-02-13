@@ -383,6 +383,11 @@ body {
   box-shadow: none;
 }
 
+[data-theme="light"] .nav-bar .logo:hover::after {
+  width: 100%;
+  background: var(--accent-primary);
+}
+
 [data-theme="light"] .nav-links a:hover,
 [data-theme="light"] .nav-links a.active {
   color: var(--accent-primary);
@@ -677,6 +682,78 @@ body {
   background: rgba(255, 255, 255, 0.98);
   border: 1px solid var(--ctp-surface1);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+}
+
+[data-theme="light"] .sidebar-list a:hover,
+[data-theme="light"] .sidebar-link:hover {
+  color: var(--accent-primary);
+  background: var(--ctp-surface0);
+  border-left-color: var(--accent-primary);
+}
+
+[data-theme="light"] .timeline-item:hover {
+  background: var(--ctp-surface0);
+  color: var(--ctp-text);
+}
+
+[data-theme="light"] .timeline-item:hover .timeline-marker {
+  background: var(--accent-primary);
+  border-color: var(--accent-primary);
+}
+
+[data-theme="light"] .timeline-item--active {
+  background: var(--ctp-crust);
+  border-left-color: var(--accent-primary);
+}
+
+[data-theme="light"] .timeline-item--active .timeline-marker {
+  background: var(--accent-primary);
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px rgba(58, 110, 165, 0.2);
+}
+
+[data-theme="light"] .timeline-item:hover .timeline-item-title,
+[data-theme="light"] .timeline-item--active .timeline-item-title {
+  color: var(--accent-primary);
+}
+
+[data-theme="light"] .timeline-item:focus-visible {
+  outline-color: var(--accent-primary);
+}
+
+[data-theme="light"] .mindmap-root {
+  color: var(--ctp-text);
+}
+
+[data-theme="light"] .mindmap-root::before {
+  display: none;
+}
+
+[data-theme="light"] .mindmap-branch:hover {
+  border-color: var(--accent-primary);
+  box-shadow: 0 4px 12px rgba(58, 110, 165, 0.15);
+}
+
+[data-theme="light"] .mindmap-node--branch {
+  color: var(--ctp-text);
+}
+
+[data-theme="light"] .mindmap-node--clickable:hover {
+  background: var(--ctp-surface0);
+}
+
+[data-theme="light"] .mindmap-node--leaf:hover {
+  color: var(--accent-primary);
+  border-left-color: var(--accent-primary);
+  background: var(--ctp-surface0);
+}
+
+[data-theme="light"] .archive-group-toggle:hover {
+  color: var(--accent-primary);
+}
+
+[data-theme="light"] .archive-month-title {
+  color: var(--ctp-text);
 }
 
 /* Page transition animation */
@@ -1623,10 +1700,19 @@ body {
 
 .cursor {
   display: inline-block;
-  color: var(--ctp-mauve);
+  color: var(--cyber-cyan);
   font-weight: 600;
   margin-left: 2px;
-  animation: blink 1.2s infinite;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+[data-theme="light"] .cursor {
+  color: var(--accent-primary);
 }
 
 /* Robot word cloud */
