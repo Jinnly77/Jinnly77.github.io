@@ -6,6 +6,7 @@ import WelcomeMessage from "../components/WelcomeMessage";
 import HeatRanking from "../components/HeatRanking";
 import MatrixRain from "../components/MatrixRain";
 import { useMobileSidebar } from "../context/MobileSidebarContext";
+import { useTheme } from "../context/ThemeContext";
 import { SEQUENTIAL_DELAY_MS, ANIMATION_DURATION_S, ANIMATION_OFFSET_PX } from "../config/animationConfig";
 
 export interface PostTocItem {
@@ -35,6 +36,7 @@ const POSTS_PER_PAGE = 10;
 
 export default function Index() {
   const { rightOpen, closeRight } = useMobileSidebar();
+  const { theme } = useTheme();
   const [currentPage, setCurrentPage] = useState(1);
   const [titleNavOpen, setTitleNavOpen] = useState(false);
   const totalPages = Math.ceil(posts.length / POSTS_PER_PAGE);
@@ -116,7 +118,7 @@ export default function Index() {
 
   return (
     <div className="index-page" style={{ position: "relative" }}>
-      <MatrixRain />
+      {theme === "dark" && <MatrixRain />}
       <section className="index-cloud-section">
         <div className="index-cloud-left">
           <WelcomeMessage />
