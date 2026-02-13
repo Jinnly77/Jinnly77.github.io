@@ -4,6 +4,7 @@ import { posts } from "virtual:posts";
 import KeywordSphere from "../components/KeywordSphere";
 import WelcomeMessage from "../components/WelcomeMessage";
 import HeatRanking from "../components/HeatRanking";
+import MatrixRain from "../components/MatrixRain";
 import { useMobileSidebar } from "../context/MobileSidebarContext";
 import { SEQUENTIAL_DELAY_MS, ANIMATION_DURATION_S, ANIMATION_OFFSET_PX } from "../config/animationConfig";
 
@@ -114,7 +115,8 @@ export default function Index() {
   };
 
   return (
-    <div className="index-page">
+    <div className="index-page" style={{ position: "relative" }}>
+      <MatrixRain />
       <section className="index-cloud-section">
         <div className="index-cloud-left">
           <WelcomeMessage />
